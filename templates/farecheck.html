@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>METRO CARD</title>
+  <link rel="icon"
+    href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Delhi_Metro_logo.svg/1200px-Delhi_Metro_logo.svg.png"
+    type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+  <style>
+    h1 {
+      text-align: center;
+    }
+
+    p {
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+
+    .brand-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 5px;
+    }
+
+    .brand-icon1 {
+      width: 27px;
+      height: 27px;
+      margin-right: 5px;
+    }
+
+
+    .btn-login {
+      background-color: #2282c7;
+      color: #020202;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+
+    .btn-login:hover {
+      background-color: #1c6aa8;
+    }
+
+    .btn-login i {
+      margin-right: 8px;
+    }
+
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding-bottom: 60px;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #f5f5f5;
+    }
+
+    .container2 {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .note-flasher {
+      width: 1000px;
+      height: 100px;
+      background-color: rgb(184, 228, 28);
+      animation: flasher 2s infinite;
+    }
+    
+    @keyframes flasher {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg" style="background-color: #2282c7;">
+    <div class="container-fluid ">
+      <a class="navbar-brand" href="/"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Delhi_Metro_logo.svg/1200px-Delhi_Metro_logo.svg.png"
+          alt="Icon" class="brand-icon">METRO CARD</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="feedback">Feedback</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="map">MAP</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="cards" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="card">Card Info</a></li>
+              <li><a class="dropdown-item" href="value">Value Add</a></li>
+              <li><a class="dropdown-item" href="balance">View Balance</a></li>
+              <li><a class="dropdown-item" href="cardhistory">Card History</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="addcard">New Card</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="farecheck">farecheck</a>
+          </li>
+        </ul>
+        <li class="d-flex">
+          <a class="btn btn-login" type="submit" href="login">
+            <img src="https://www.freeiconspng.com/uploads/user-login-icon-14.png" alt="Icon" class="brand-icon1"></i>
+            LOGIN
+          </a>
+        </li>
+      </div>
+    </div>
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+
+  <script>
+    function calculateFare() {
+      var sourceStation = document.getElementById("source-station").value;
+      var destinationStation = document.getElementById("destination-station").value;
+
+      // Fare per station
+      var farePerStation = 5; // Replace with the actual fare per station
+
+      // Calculate the number of stations traveled
+      var numStations = Math.abs(destinationStation - sourceStation); // Assuming stations are numbered consecutively
+
+      // Calculate the total fare
+      var totalFare = farePerStation * numStations;
+
+      // Apply auto discount if applicable
+      if (totalFare > 90) {
+        var discountPercentage = ((totalFare - 90) / totalFare) * 100;
+        var discountAmount = (totalFare * discountPercentage) / 100;
+        totalFare -= discountAmount;
+      }
+
+      // Apply discount if applicable
+      if (discountPercentage > 0) {
+        var discountAmount = (totalFare * discountPercentage) / 100;
+        totalFare -= discountAmount;
+      }
+
+
+      // Display the fare
+      document.getElementById("fare-result").textContent = "Fare will be:₹" + totalFare.toFixed();
+    }
+  </script>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <h1>Delhi Metro Fare Calculator</h1>
+      <div class="form-group">
+        <label for="source-station">Source Station:</label>
+        <select id="source-station" class="form-control" min="1" max="44">
+          <option value="1">Dwarka Sector 21</option>
+          <option value="2">Dwarka Sector 8</option>
+          <option value="3">Dwarka Sector 9</option>
+          <option value="4">Dwarka Sector 10</option>
+          <option value="5">Dwarka Sector 11</option>
+          <option value="6">Dwarka Sector 12</option>
+          <option value="7">Dwarka Sector 13</option>
+          <option value="8">Dwarka Sector 14</option>
+          <option value="9">Dwarka</option>
+          <option value="10">Dwarka Mor</option>
+          <option value="11">Nawada</option>
+          <option value="12">Uttam Nagar West</option>
+          <option value="13">Uttam Nagar East</option>
+          <option value="14">Janakpuri West</option>
+          <option value="15">Janakpuri East</option>
+          <option value="16">Tilak Nagar</option>
+          <option value="17">Subhash Nagar</option>
+          <option value="18">Tagore Garden</option>
+          <option value="19">Rajouri Garden</option>
+          <option value="20">Ramesh Nagar</option>
+          <option value="21">Moti Nagar</option>
+          <option value="22">Kirti Nagar</option>
+          <option value="23">Shadipur</option>
+          <option value="24">Patel Nagar</option>
+          <option value="25">Rajendra Place</option>
+          <option value="26">Karol Bagh</option>
+          <option value="27">Jhandewalan</option>
+          <option value="28">R K Ashram Marg</option>
+          <option value="29">Rajiv Chowk</option>
+          <option value="30">Barakhamba Road</option>
+          <option value="31">Mandi House</option>
+          <option value="32">Pragati Maidan</option>
+          <option value="33">Indraprastha</option>
+          <option value="34">Yamuna Bank</option>
+          <option value="35">Akshardham</option>
+          <option value="36">Mayur Vihar Phase-1</option>
+          <option value="37">Mayur Vihar Extension</option>
+          <option value="38">New Ashok Nagar</option>
+          <option value="39">Noida Sector 15</option>
+          <option value="40">Noida Sector 16</option>
+          <option value="41">Noida Sector 18</option>
+          <option value="42">Botanical Garden</option>
+          <option value="43">Golf Course</option>
+          <option value="44">Noida City Centre</option>
+        </select>
+      </div>
+      <br><br>
+      <div class="form-group">
+        <label for="destination-station">Destination Station:</label>
+        <select id="destination-station" class="form-control" min="1" max="44">
+          <option value="1">Dwarka Sector 21</option>
+          <option value="2">Dwarka Sector 8</option>
+          <option value="3">Dwarka Sector 9</option>
+          <option value="4">Dwarka Sector 10</option>
+          <option value="5">Dwarka Sector 11</option>
+          <option value="6">Dwarka Sector 12</option>
+          <option value="7">Dwarka Sector 13</option>
+          <option value="8">Dwarka Sector 14</option>
+          <option value="9">Dwarka</option>
+          <option value="10">Dwarka Mor</option>
+          <option value="11">Nawada</option>
+          <option value="12">Uttam Nagar West</option>
+          <option value="13">Uttam Nagar East</option>
+          <option value="14">Janakpuri West</option>
+          <option value="15">Janakpuri East</option>
+          <option value="16">Tilak Nagar</option>
+          <option value="17">Subhash Nagar</option>
+          <option value="18">Tagore Garden</option>
+          <option value="19">Rajouri Garden</option>
+          <option value="20">Ramesh Nagar</option>
+          <option value="21">Moti Nagar</option>
+          <option value="22">Kirti Nagar</option>
+          <option value="23">Shadipur</option>
+          <option value="24">Patel Nagar</option>
+          <option value="25">Rajendra Place</option>
+          <option value="26">Karol Bagh</option>
+          <option value="27">Jhandewalan</option>
+          <option value="28">R K Ashram Marg</option>
+          <option value="29">Rajiv Chowk</option>
+          <option value="30">Barakhamba Road</option>
+          <option value="31">Mandi House</option>
+          <option value="32">Pragati Maidan</option>
+          <option value="33">Indraprastha</option>
+          <option value="34">Yamuna Bank</option>
+          <option value="35">Akshardham</option>
+          <option value="36">Mayur Vihar Phase-1</option>
+          <option value="37">Mayur Vihar Extension</option>
+          <option value="38">New Ashok Nagar</option>
+          <option value="39">Noida Sector 15</option>
+          <option value="40">Noida Sector 16</option>
+          <option value="41">Noida Sector 18</option>
+          <option value="42">Botanical Garden</option>
+          <option value="43">Golf Course</option>
+          <option value="44">Noida City Centre</option>
+        </select>
+
+
+      </div>
+      <br><br>
+
+      <button onclick="calculateFare()">Calculate Fare</button>
+      <br><br>
+      <h1 style="color:rgb(10, 1, 1);font-size:50px">Fare of your trip....</h1>
+      <ul>
+        <li>
+          <div class="badge bg-primary text-wrap" style="width: 15rem; height: 50px; font-size:15px;" id="fare-result"></div>
+        </li>
+      </ul>
+
+
+
+    
+    
+
+
+
+    <div class="container2 my-5">
+      <a href="/" class="btn btn-primary">Go to home</a>
+    </div>
+    <br /><br />
+
+    <div class="container note-flasher">
+      <h1>This is under development more line will add soon!!</h1>
+    </div>
+    <footer class="footer">
+      <div class="container2">
+        <p>© 2023 Your Website. All rights reserved.</p>
+      </div>
+    </footer>
+
+
+  </body>
+
+</html>
